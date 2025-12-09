@@ -74,7 +74,13 @@
                 </span>
                 <span
                   v-if="cell.day && dayCounts[cell.day]"
-                  class="text-[12px] text-sky-200"
+                  class="text-[12px]"
+                  :class="
+                    maxAvailableCount &&
+                    dayCounts[cell.day] === maxAvailableCount
+                      ? 'text-amber-300'
+                      : 'text-sky-200'
+                  "
                 >
                   {{ dayCounts[cell.day] }}명 가능
                 </span>
@@ -309,6 +315,12 @@ const dayCounts = computed<Record<number, number>>(() => {
     entries[Number(day)] = names.size;
   }
   return entries;
+});
+
+const maxAvailableCount = computed(() => {
+  const counts = Object.values(dayCounts.value);
+  if (!counts.length) return 0;
+  return Math.max(...counts);
 });
 
 const dayNames = computed<Record<number, string[]>>(() => {
