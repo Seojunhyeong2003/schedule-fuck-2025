@@ -252,7 +252,23 @@ useHead({
       property: "og:type",
       content: "website",
     },
+    {
+      property: "og:url",
+      content: siteUrl || "https://main.d3jjn14xt8mkxt.amplifyapp.com",
+    },
+    {
+      property: "og:site_name",
+      content: "우리아이들 송년회 캘린더",
+    },
   ],
+  link: siteUrl
+    ? [
+        {
+          rel: "canonical",
+          href: siteUrl,
+        },
+      ]
+    : [],
 });
 
 const supabaseClient: SupabaseClient | null =
