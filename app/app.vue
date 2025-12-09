@@ -27,76 +27,76 @@
           class="min-w-[720px] sm:min-w-full rounded-2xl border border-white/10 bg-white/5 p-4 md:p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-sm"
         >
           <div class="mb-4 flex items-center justify-between gap-4">
-          <div>
-            <p class="text-xs uppercase tracking-[0.22em] text-sky-300">
-              December
-            </p>
-            <h2 class="mt-1 text-2xl font-semibold">2025년 12월</h2>
-          </div>
-          <div class="flex items-center gap-3 text-xs text-slate-200">
-            <span
-              class="inline-flex h-3.5 w-3.5 rounded-full bg-gradient-to-r from-sky-300 to-indigo-400"
-            />
-            내 선택
-            <span
-              class="inline-flex h-3.5 w-3.5 rounded-full bg-gradient-to-r from-amber-200 to-rose-400"
-            />
-            다수 가능
-          </div>
-        </div>
-
-        <div class="flex flex-col gap-3">
-          <div
-            class="grid grid-cols-7 text-center text-[11px] uppercase tracking-wide text-slate-400"
-          >
-            <span v-for="w in weekdayLabels" :key="w">{{ w }}</span>
-          </div>
-          <div class="grid grid-cols-7 gap-1.5 md:gap-2">
-            <button
-              v-for="cell in calendarCells"
-              :key="cell.key"
-              class="group relative flex min-h-[92px] flex-col gap-2 rounded-xl border border-white/10 bg-white/5 p-3 text-left text-sm transition duration-150 hover:-translate-y-0.5 hover:border-sky-300/70"
-              :class="{
-                'pointer-events-none cursor-not-allowed bg-white/5 border-transparent text-slate-500 opacity-40':
-                  !cell.isCurrentMonth,
-                'bg-gradient-to-br from-sky-300/20 via-indigo-700/40 to-slate-900/90 border-sky-300/80 shadow-xl shadow-sky-500/20':
-                  cell.day && selectedDays.has(cell.day),
-                'bg-gradient-to-br from-amber-200/15 via-rose-800/40 to-slate-900/90 border-amber-200/60':
-                  cell.day &&
-                  dayCounts[cell.day] >= 3 &&
-                  !selectedDays.has(cell.day),
-              }"
-              :disabled="!cell.isCurrentMonth"
-              @click="cell.day && toggleDay(cell.day)"
-            >
-              <span class="text-base font-semibold text-slate-100">
-                {{ cell.label }}
-              </span>
+            <div>
+              <p class="text-xs uppercase tracking-[0.22em] text-sky-300">
+                December
+              </p>
+              <h2 class="mt-1 text-2xl font-semibold">2025년 12월</h2>
+            </div>
+            <div class="flex items-center gap-3 text-xs text-slate-200">
               <span
-                v-if="cell.day && dayCounts[cell.day]"
-                class="text-[12px] text-sky-200"
-              >
-                {{ dayCounts[cell.day] }}명 가능
-              </span>
-              <div
-                v-if="cell.day && dayNames[cell.day]?.length"
-                class="flex flex-wrap gap-1"
-              >
-                <span
-                  v-for="person in dayNames[cell.day]"
-                  :key="person"
-                  class="rounded-md px-2 py-1 text-[11px] font-semibold"
-                  :class="
-                    person === currentName
-                      ? 'bg-gradient-to-r from-amber-200 to-rose-400 text-slate-950 shadow-sm'
-                      : 'bg-white/10 text-slate-100'
-                  "
-                >
-                  {{ person }}
-                </span>
-              </div>
-            </button>
+                class="inline-flex h-3.5 w-3.5 rounded-full bg-gradient-to-r from-sky-300 to-indigo-400"
+              />
+              내 선택
+              <span
+                class="inline-flex h-3.5 w-3.5 rounded-full bg-gradient-to-r from-amber-200 to-rose-400"
+              />
+              다수 가능
+            </div>
           </div>
+
+          <div class="flex flex-col gap-3">
+            <div
+              class="grid grid-cols-7 text-center text-[11px] uppercase tracking-wide text-slate-400"
+            >
+              <span v-for="w in weekdayLabels" :key="w">{{ w }}</span>
+            </div>
+            <div class="grid grid-cols-7 gap-1.5 md:gap-2">
+              <button
+                v-for="cell in calendarCells"
+                :key="cell.key"
+                class="group relative flex min-h-[92px] flex-col gap-2 rounded-xl border border-white/10 bg-white/5 p-3 text-left text-sm transition duration-150 hover:-translate-y-0.5 hover:border-sky-300/70"
+                :class="{
+                  'pointer-events-none cursor-not-allowed bg-white/5 border-transparent text-slate-500 opacity-40':
+                    !cell.isCurrentMonth,
+                  'bg-gradient-to-br from-sky-300/20 via-indigo-700/40 to-slate-900/90 border-sky-300/80 shadow-xl shadow-sky-500/20':
+                    cell.day && selectedDays.has(cell.day),
+                  'bg-gradient-to-br from-amber-200/15 via-rose-800/40 to-slate-900/90 border-amber-200/60':
+                    cell.day &&
+                    dayCounts[cell.day] >= 3 &&
+                    !selectedDays.has(cell.day),
+                }"
+                :disabled="!cell.isCurrentMonth"
+                @click="cell.day && toggleDay(cell.day)"
+              >
+                <span class="text-base font-semibold text-slate-100">
+                  {{ cell.label }}
+                </span>
+                <span
+                  v-if="cell.day && dayCounts[cell.day]"
+                  class="text-[12px] text-sky-200"
+                >
+                  {{ dayCounts[cell.day] }}명 가능
+                </span>
+                <div
+                  v-if="cell.day && dayNames[cell.day]?.length"
+                  class="flex gap-1 overflow-x-auto"
+                >
+                  <span
+                    v-for="person in dayNames[cell.day]"
+                    :key="person"
+                    class="rounded-md px-2 py-1 text-[11px] font-semibold whitespace-nowrap"
+                    :class="
+                      person === currentName
+                        ? 'bg-gradient-to-r from-amber-200 to-rose-400 text-slate-950 shadow-sm'
+                        : 'bg-white/10 text-slate-100'
+                    "
+                  >
+                    {{ person }}
+                  </span>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -166,11 +166,11 @@
             >
               <div>
                 <p class="text-sm font-semibold">12월 {{ day.day }}일</p>
-                <div class="mt-1 flex flex-wrap gap-1">
+                <div class="mt-1 flex gap-1 overflow-x-auto">
                   <span
                     v-for="person in day.names"
                     :key="person"
-                    class="rounded-md px-2 py-1 text-[11px] font-semibold"
+                    class="rounded-md px-2 py-1 text-[11px] font-semibold whitespace-nowrap"
                     :class="
                       person === currentName
                         ? 'bg-gradient-to-r from-amber-200 to-rose-400 text-slate-950 shadow-sm'
@@ -336,7 +336,7 @@ async function fetchAvailability() {
 
   if (error) {
     console.error(error);
-    window.alert("Supabase에서 데이터를 불러오지 못했습니다.");
+    window.alert("니 폰 허접이라 데이터 못불러옴 ㅋ");
     return;
   }
 
@@ -360,7 +360,7 @@ async function fetchAvailability() {
 async function saveAvailability() {
   const name = nameInput.value.trim();
   if (!name) {
-    window.alert("이름을 입력해 주세요.");
+    window.alert("이름은 엿바꿔먹었냐");
     return;
   }
 
@@ -368,7 +368,7 @@ async function saveAvailability() {
   const next = new Set(selectedDays.value);
 
   if (!supabaseClient) {
-    window.alert("Supabase 환경 변수를 설정해 주세요.");
+    window.alert("이건 뜨면 안되는 경고임 ㅅㅂ 뭔짓했냐");
     return;
   }
 
@@ -382,7 +382,7 @@ async function saveAvailability() {
 
   if (error) {
     console.error(error);
-    window.alert("Supabase 저장 중 오류가 발생했습니다.");
+    window.alert("니 폰 허접이라 저장 실패한듯 ㅋ");
     return;
   }
 
@@ -414,14 +414,14 @@ async function saveAvailability() {
 async function deleteAvailability() {
   const name = nameInput.value.trim();
   if (!name) {
-    window.alert("삭제할 이름을 입력해 주세요.");
+    window.alert("이름은 자꾸 어따 빼먹음?");
     return;
   }
   if (!supabaseClient) {
-    window.alert("Supabase 환경 변수를 설정해 주세요.");
+    window.alert("뜨면 안되는 경고인데 ㅅㅂ 뭔짓했냐");
     return;
   }
-  const confirmed = window.confirm(`${name}님의 일정을 삭제할까요?`);
+  const confirmed = window.confirm(`${name} <-- 이놈 일정 다 삭제해버린다?`);
   if (!confirmed) return;
 
   isLoading.value = true;
@@ -433,7 +433,7 @@ async function deleteAvailability() {
 
   if (error) {
     console.error(error);
-    window.alert("Supabase 삭제 중 오류가 발생했습니다.");
+    window.alert("니 폰 허접이라 삭제못한듯 ㅋ");
     return;
   }
 
@@ -453,7 +453,7 @@ async function deleteAvailability() {
   availabilityByName.value = { ...availabilityByName.value };
   selectedDays.value = new Set();
   fetchAvailability();
-  window.alert(`${name}님의 일정이 삭제되었습니다.`);
+  window.alert(`${name} <-- 이새기 일정 삭제됨 ㅋ`);
 }
 
 onMounted(() => {
