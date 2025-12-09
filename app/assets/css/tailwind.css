@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased;
+    background: radial-gradient(circle at 20% 20%, #101620, #090b10 40%),
+      radial-gradient(circle at 80% 0%, #132237, #090b10 45%),
+      #0a0c12;
+    font-family: "Space Grotesk", "Noto Sans KR", "SUIT", system-ui, -apple-system,
+      sans-serif;
+  }
+
+  * {
+    scrollbar-color: #4b5563 transparent;
+  }
+}
