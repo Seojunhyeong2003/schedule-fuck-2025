@@ -204,6 +204,7 @@
 import { computed, onMounted, ref } from "vue";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { useRuntimeConfig } from "#app";
+import { useHead } from "#imports";
 
 const year = 2025;
 const month = 11; // December (0-based)
@@ -221,6 +222,32 @@ type AvailabilityByDay = Record<number, Set<string>>;
 type AvailabilityRow = { name: string; days: number[] };
 
 const runtimeConfig = useRuntimeConfig();
+const siteUrl = runtimeConfig.public.siteUrl;
+const ogImage = siteUrl
+  ? `${siteUrl.replace(/\/$/, "")}/og-calendar.png`
+  : "/og-calendar.png";
+
+useHead({
+  title: "2025년 우리아이들 송년회 캘린더",
+  meta: [
+    {
+      property: "og:title",
+      content: "2025년 우리아이들 송년회 캘린더",
+    },
+    {
+      property: "og:description",
+      content: "날짜 눌러서 저장해라. 다 같이 맞는 날 찾아보자!",
+    },
+    {
+      property: "og:image",
+      content: ogImage,
+    },
+    {
+      property: "og:type",
+      content: "website",
+    },
+  ],
+});
 
 const supabaseClient: SupabaseClient | null =
   runtimeConfig.public.supabaseUrl && runtimeConfig.public.supabaseAnonKey
