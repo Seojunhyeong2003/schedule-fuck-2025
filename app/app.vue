@@ -86,7 +86,7 @@
                 </span>
                 <div
                   v-if="cell.day && dayNames[cell.day]?.length"
-                  class="flex gap-1 overflow-x-auto"
+                  class="flex gap-1 overflow-x-auto pr-1"
                 >
                   <span
                     v-for="person in dayNames[cell.day]"
@@ -168,30 +168,30 @@
             <div
               v-for="day in bestDays"
               :key="day.day"
-              class="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-3"
+              class="flex flex-col gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-3"
             >
-              <div>
+              <div class="flex items-center gap-2">
                 <p class="text-sm font-semibold">12월 {{ day.day }}일</p>
-                <div class="mt-1 flex gap-1 overflow-x-auto">
-                  <span
-                    v-for="person in day.names"
-                    :key="person"
-                    class="rounded-md px-2 py-1 text-[11px] font-semibold whitespace-nowrap"
-                    :class="
-                      person === currentName
-                        ? 'bg-gradient-to-r from-amber-200 to-rose-400 text-slate-950 shadow-sm'
-                        : 'bg-white/10 text-slate-100'
-                    "
-                  >
-                    {{ person }}
-                  </span>
-                </div>
+                <span
+                  class="ml-auto rounded-lg bg-white/10 px-2.5 py-1 text-xs text-slate-100"
+                >
+                  {{ day.names.length }}명
+                </span>
               </div>
-              <span
-                class="rounded-lg bg-white/10 px-2.5 py-1 text-xs text-slate-100"
-              >
-                {{ day.names.length }}명
-              </span>
+              <div class="flex flex-wrap gap-1">
+                <span
+                  v-for="person in day.names"
+                  :key="person"
+                  class="rounded-md px-2 py-1 text-[11px] font-semibold whitespace-nowrap"
+                  :class="
+                    person === currentName
+                      ? 'bg-gradient-to-r from-amber-200 to-rose-400 text-slate-950 shadow-sm'
+                      : 'bg-white/10 text-slate-100'
+                  "
+                >
+                  {{ person }}
+                </span>
+              </div>
             </div>
             <p
               v-if="!bestDays.length"
